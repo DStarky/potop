@@ -31,6 +31,8 @@ interface AddressFormI {
 }
 
 const AddressForm = ({ form }: AddressFormI) => {
+  const [open, setOpen] = useState(false);  
+
   return (
     <>
       <FormField
