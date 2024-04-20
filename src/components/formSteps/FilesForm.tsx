@@ -1,15 +1,13 @@
-import Link from 'next/link';
 
 import { RequestFormSchema } from '@/lib/requestFormSchema';
 import { cn } from '@/lib/utils';
 import { UseFormReturn } from 'react-hook-form';
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '../ui/form';
 import { Input } from '../ui/input';
 
@@ -20,15 +18,13 @@ interface FilesFormI {
 
 const FilesForm = ({ form, hidden }: FilesFormI) => {
   return (
-    <div className={cn('space-y-8n', hidden && 'hidden')}>
+    <div className={cn('space-y-8', hidden && 'hidden')}>
       <FormField
         control={form.control}
         name='документ_паспорт'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>
-              Документ, удостоверяющий личность/подтверждающий полномочия*
-            </FormLabel>
+            <FormLabel>Копия паспорта*</FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -37,7 +33,6 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
                   field.onChange(event?.target?.files?.[0]);
                 }}
                 type='file'
-                placeholder='Документ, удостоверяющий личность'
               />
             </FormControl>
             <FormMessage />
@@ -49,7 +44,10 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
         name='документ_копия'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Справка о соответсвии условиями отбора*</FormLabel>
+            <FormLabel>
+              Копия документа, подтверждающего полномочия лица, подписавшего
+              заявку (в случае, если заявка подается не руководителем)*
+            </FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -60,12 +58,6 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
                 type='file'
               />
             </FormControl>{' '}
-            <FormDescription>
-              Форма справки -{' '}
-              <Link href='#' className='underline'>
-                скачать
-              </Link>
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -75,7 +67,7 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
         name='документ_расчет'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Отчетные документы*</FormLabel>
+            <FormLabel>Справка-расчет работодателя*</FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -86,9 +78,6 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
                 type='file'
               />
             </FormControl>
-            <FormDescription>
-              СФР (форма-4 ФСС РФ) или ФНС (форма по КНД 1151111)
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -99,7 +88,8 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Документы, подтверждающие право собственности или пользования*
+              Форма налоговой отчетности ”Персонифицированные сведения о
+              физических лицах”*
             </FormLabel>
             <FormControl>
               <Input
@@ -111,9 +101,6 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
                 type='file'
               />
             </FormControl>
-            <FormDescription>
-              Договор купли/продажи, аренды, ПТС, доверенность, выписка из ОГРН
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -124,7 +111,10 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
         name='документ_персональные_данные'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Материалы, подтверждающие факт затопления</FormLabel>
+            <FormLabel>
+              Согласие на предоставление персональных данных третьим лицам (по
+              работникам)
+            </FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -135,9 +125,7 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
                 type='file'
               />
             </FormControl>
-            <FormDescription>
-              Фото/видео материалы в едином архиве
-            </FormDescription>
+
             <FormMessage />
           </FormItem>
         )}
