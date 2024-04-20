@@ -1,5 +1,8 @@
 import Link from 'next/link';
 
+import { RequestFormSchema } from '@/lib/requestFormSchema';
+import { cn } from '@/lib/utils';
+import { UseFormReturn } from 'react-hook-form';
 import {
   FormControl,
   FormDescription,
@@ -11,15 +14,16 @@ import {
 import { Input } from '../ui/input';
 
 interface FilesFormI {
-  form: any;
+  form: UseFormReturn<RequestFormSchema>;
+  hidden: boolean;
 }
 
-const FilesForm = ({ form }: FilesFormI) => {
+const FilesForm = ({ form, hidden }: FilesFormI) => {
   return (
-    <div className='space-y-8'>
+    <div className={cn('space-y-8n', hidden && 'hidden')}>
       <FormField
         control={form.control}
-        name='document_identity'
+        name='документ_паспорт'
         render={({ field }) => (
           <FormItem>
             <FormLabel>
@@ -27,9 +31,13 @@ const FilesForm = ({ form }: FilesFormI) => {
             </FormLabel>
             <FormControl>
               <Input
+                {...field}
+                value={field.value?.fileName}
+                onChange={(event) => {
+                  field.onChange(event?.target?.files?.[0]);
+                }}
                 type='file'
                 placeholder='Документ, удостоверяющий личность'
-                {...field}
               />
             </FormControl>
             <FormMessage />
@@ -38,15 +46,25 @@ const FilesForm = ({ form }: FilesFormI) => {
       />
       <FormField
         control={form.control}
-        name='document_selection'
+        name='документ_копия'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Справка о соответсвии условиями отбора*</FormLabel>
             <FormControl>
-              <Input type='file' {...field} />
+              <Input
+                {...field}
+                value={field.value?.fileName}
+                onChange={(event) => {
+                  field.onChange(event?.target?.files?.[0]);
+                }}
+                type='file'
+              />
             </FormControl>{' '}
             <FormDescription>
-              Форма справки - <Link href='#'>скачать</Link>
+              Форма справки -{' '}
+              <Link href='#' className='underline'>
+                скачать
+              </Link>
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -54,12 +72,19 @@ const FilesForm = ({ form }: FilesFormI) => {
       />
       <FormField
         control={form.control}
-        name='document_report'
+        name='документ_расчет'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Отчетные документы*</FormLabel>
             <FormControl>
-              <Input type='file' {...field} />
+              <Input
+                {...field}
+                value={field.value?.fileName}
+                onChange={(event) => {
+                  field.onChange(event?.target?.files?.[0]);
+                }}
+                type='file'
+              />
             </FormControl>
             <FormDescription>
               СФР (форма-4 ФСС РФ) или ФНС (форма по КНД 1151111)
@@ -70,14 +95,21 @@ const FilesForm = ({ form }: FilesFormI) => {
       />
       <FormField
         control={form.control}
-        name='document_own'
+        name='документ_сведения'
         render={({ field }) => (
           <FormItem>
             <FormLabel>
               Документы, подтверждающие право собственности или пользования*
             </FormLabel>
             <FormControl>
-              <Input type='file' {...field} />
+              <Input
+                {...field}
+                value={field.value?.fileName}
+                onChange={(event) => {
+                  field.onChange(event?.target?.files?.[0]);
+                }}
+                type='file'
+              />
             </FormControl>
             <FormDescription>
               Договор купли/продажи, аренды, ПТС, доверенность, выписка из ОГРН
@@ -89,12 +121,19 @@ const FilesForm = ({ form }: FilesFormI) => {
 
       <FormField
         control={form.control}
-        name='document_flooding'
+        name='документ_персональные_данные'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Материалы, подтверждающие факт затопления</FormLabel>
             <FormControl>
-              <Input type='file' {...field} />
+              <Input
+                {...field}
+                value={field.value?.fileName}
+                onChange={(event) => {
+                  field.onChange(event?.target?.files?.[0]);
+                }}
+                type='file'
+              />
             </FormControl>
             <FormDescription>
               Фото/видео материалы в едином архиве

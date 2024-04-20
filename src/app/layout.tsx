@@ -18,8 +18,7 @@ export default function RootLayout({
   return (
     <html lang='ru'>
       <body className={inter.className}>
-        <Navbar />
-        <main className='max-w-screen-xl mx-auto'>{children}</main>
+        <main className='max-w-screen-xl mx-auto py-12'>{children}</main>
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
     <>
       <FormField
         control={form.control}
-        name='agreement_foreign'
+        name='согласие_офшоры'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -45,7 +45,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_terror'
+        name='согласие_терроризм'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -56,9 +56,9 @@ const AgreementForm = ({ form }: AgreementFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                субъект МСП или самозанятый не находится в перечне организаций и
-                физических лиц, в отношении которых имеются сведения об их
-                причастности к экстремистской деятельности или терроризму
+                не находится в перечне организаций и физических лиц, в отношении
+                которых имеются сведения об их причастности к экстремистской
+                деятельности или терроризму
               </FormLabel>
               <FormMessage />
             </div>
@@ -67,7 +67,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_oon'
+        name='согласие_оон'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -78,12 +78,12 @@ const AgreementForm = ({ form }: AgreementFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                субъект МСП или самозанятый не находится в составляемых в рамках
-                реализации полномочий, предусмотренных главой VII Устава ООН,
-                Советом Безопасности ООН или органами, специально созданными
-                решениями Совета Безопасности ООН, перечнях организаций и
-                физических лиц, связанных с террористическими организациями и
-                террористами или с распространением оружия массового уничтожения
+                не находится в составляемых в рамках реализации полномочий,
+                предусмотренных главой VII Устава ООН, Советом Безопасности ООН
+                или органами, специально созданными решениями Совета
+                Безопасности ООН, перечнях организаций и физических лиц,
+                связанных с террористическими организациями и террористами или с
+                распространением оружия массового уничтожения
               </FormLabel>
               <FormMessage />
             </div>
@@ -92,7 +92,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_orenburg'
+        name='согласие_бюджет'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -103,9 +103,11 @@ const AgreementForm = ({ form }: AgreementFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                субъект МСП или самозанятый не получает средства из бюджета
-                субъекта Оренбургской области на цели, указанные в пункте 3{' '}
-                <Link href='#'>Порядка</Link>
+                не получает средства из бюджета субъекта Оренбургской области на
+                цели, указанные в пункте 3{' '}
+                <Link href='#' className='underline'>
+                  Порядка
+                </Link>
               </FormLabel>
               <FormMessage />
             </div>
@@ -114,7 +116,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_control'
+        name='согласие_иноагент'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -125,9 +127,9 @@ const AgreementForm = ({ form }: AgreementFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                субъект МСП или самозанятый не является иностранным агентом в
-                соответствии с Федеральным законом ”О контроле за деятельностью
-                лиц, находящихся под иностранным влиянием”
+                не является иностранным агентом в соответствии с Федеральным
+                законом ”О контроле за деятельностью лиц, находящихся под
+                иностранным влиянием”
               </FormLabel>
               <FormMessage />
             </div>
@@ -136,7 +138,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_nalog'
+        name='согласие_задолженность'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -147,35 +149,12 @@ const AgreementForm = ({ form }: AgreementFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                у субъекта МСП или самозанятого на едином налоговом счете
-                отсутствует или не превышает размер, определенный пунктом 3
-                статьи 47 Налогового кодекса Российской Федерации, задолженность
-                по уплате налогов, сборов и страховых взносов в бюджеты
-                бюджетной системы Российской Федерации
-              </FormLabel>
-              <FormMessage />
-            </div>
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name='agreement_debt'
-        render={({ field }) => (
-          <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
-            <FormControl className='mt-1'>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
-                у субъекта МСП или самозанятого просроченная задолженность по
-                возврату в областной бюджет бюджетных инвестиций, субсидий,
+                у организации отсутствует просроченная задолженность по возврату
+                в областной бюджет субсидий, бюджетных инвестиций,
                 предоставленных в том числе в соответствии с иными правовыми
-                актами, и иная просроченная (неурегулированная) задолженность
-                перед Оренбургской областью
+                актами, а также иную просроченную (неурегулированную)
+                задолженность по денежным обязательствам перед Оренбургской
+                областью
               </FormLabel>
               <FormMessage />
             </div>
@@ -184,7 +163,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_reorganization'
+        name='согласие_реорганизация'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -213,7 +192,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_disqualification'
+        name='согласие_дисквалификация'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -238,9 +217,12 @@ const AgreementForm = ({ form }: AgreementFormI) => {
           </FormItem>
         )}
       />
+
+      <h3 className='text-xl font-bold pt-6'>Выражаю согласие</h3>
+
       <FormField
         control={form.control}
-        name='agreement_check'
+        name='согласие_проверки'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -251,10 +233,10 @@ const AgreementForm = ({ form }: AgreementFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                согласие на осуществление министерством проверок соблюдения
-                участником отбора порядка и условий предоставления субсидии, в
-                том числе в части достижения результата предоставления субсидии,
-                а также проверок органом государственного финансового контроля
+                на осуществление министерством проверок соблюдения участником
+                отбора порядка и условий предоставления субсидии, в том числе в
+                части достижения результата предоставления субсидии, а также
+                проверок органом государственного финансового контроля
                 соблюдения порядка и условий предоставления субсидии в
                 соответствии со статьями 2681 и 2692 Бюджетного кодекса
                 Российской Федерации и на включение таких положений в соглашение
@@ -266,7 +248,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='agreement_personal'
+        name='согласие_данные'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -277,7 +259,51 @@ const AgreementForm = ({ form }: AgreementFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                cогласие на обработку персональных данных
+                на обработку персональных данных
+              </FormLabel>
+              <FormMessage />
+            </div>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name='согласие_налоговая'
+        render={({ field }) => (
+          <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
+            <FormControl className='mt-1'>
+              <Checkbox
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+            </FormControl>
+            <div className='space-y-1 leading-none'>
+              <FormLabel className='text-sm text-muted-foreground'>
+                на предоставление налоговыми органами сведений о
+                налогоплательщике (плательщике страховых взносов, налоговом
+                агенте), составляющих налоговую тайну в целях подтверждения
+                остоверности представленных сведений
+              </FormLabel>
+              <FormMessage />
+            </div>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name='согласие_интернет'
+        render={({ field }) => (
+          <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
+            <FormControl className='mt-1'>
+              <Checkbox
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+            </FormControl>
+            <div className='space-y-1 leading-none'>
+              <FormLabel className='text-sm text-muted-foreground'>
+                на публикацию (размещение) в информационно-телекоммуникационной
+                сети ”Интернет”
               </FormLabel>
               <FormMessage />
             </div>

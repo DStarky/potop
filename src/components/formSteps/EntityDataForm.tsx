@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   FormControl,
   FormDescription,
@@ -7,17 +8,31 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { streets } from '@/constants/options';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '../ui/command';
 
 interface EntityDataFormI {
   form: any;
 }
 
 const EntityDataForm = ({ form }: EntityDataFormI) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <FormField
         control={form.control}
-        name='name'
+        name='наименование_юл'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Наименование ЮЛ/ФИО*</FormLabel>
@@ -30,23 +45,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='inn'
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>ИНН*</FormLabel>
-            <FormControl>
-              <Input placeholder='ИНН' type='number' {...field} />
-            </FormControl>
-            <FormDescription>
-              10 цифр для субъектов МСП, 12 цифр для для ИП и самозанятых
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name='ogrn'
+        name='огрн'
         render={({ field }) => (
           <FormItem>
             <FormLabel>ОГРН (ОГРНИП)*</FormLabel>
@@ -60,7 +59,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='kpp'
+        name='кпп'
         render={({ field }) => (
           <FormItem>
             <FormLabel>КПП*</FormLabel>
@@ -71,37 +70,10 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name='oktmo'
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>ОКТМО*</FormLabel>
-            <FormControl>
-              <Input placeholder='ОКТМО' type='number' {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name='okato'
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>ОКАТО*</FormLabel>
-            <FormControl>
-              <Input placeholder='ОКАТО' type='number' {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
       <h3 className='text-xl font-bold pt-6'>Юридический адрес</h3>
       <FormField
         control={form.control}
-        name='address_municipality'
+        name='юридический_адрес_муниципалитет'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Муниципальное образование*</FormLabel>
@@ -114,7 +86,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='address_city'
+        name='юридический_адрес_населенный_пункт'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Населенный пункт*</FormLabel>
@@ -127,7 +99,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='address_street'
+        name='юридический_адрес_улица'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Улица*</FormLabel>
@@ -142,7 +114,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       <div className='flex gap-4'>
         <FormField
           control={form.control}
-          name='address_building'
+          name='юридический_адрес_номер_дома'
           render={({ field }) => (
             <FormItem className='flex-grow'>
               <FormLabel>Номер дома*</FormLabel>
@@ -155,7 +127,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
         />
         <FormField
           control={form.control}
-          name='address_apartment'
+          name='юридический_адрес_номер_квартиры'
           render={({ field }) => (
             <FormItem className='flex-grow'>
               <FormLabel>Номер квартиры</FormLabel>
@@ -167,6 +139,75 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
           )}
         />
       </div>
+
+      <h3 className='text-xl font-bold pt-6'>
+        Адрес(а) фактического осуществления деятельности в зоне ЧС
+      </h3>
+
+      <FormField
+        control={form.control}
+        name='фактический_адрес'
+        render={({ field }) => (
+          <FormItem className='flex flex-col'>
+            <FormLabel>Выберите адрес</FormLabel>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <FormControl>
+                  <Button
+                    variant='outline'
+                    role='combobox'
+                    className={cn(
+                      'w-[200px] justify-between',
+                      !field.value && 'text-muted-foreground',
+                    )}
+                  >
+                    {field.value
+                      ? streets.find((street) => street.value === field.value)
+                          ?.label
+                      : 'Выберите адрес'}
+                    <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+                  </Button>
+                </FormControl>
+              </PopoverTrigger>
+              <PopoverContent className='w-[200px] p-0'>
+                <Command>
+                  <CommandInput placeholder='Найдите адрес...' />
+                  <CommandEmpty>
+                    Улица не найдена. Обратитесь в контактный центр по телефону
+                    112
+                  </CommandEmpty>
+                  <CommandGroup>
+                    {streets.map((street) => (
+                      <CommandItem
+                        value={street.label}
+                        key={street.value}
+                        onSelect={() => {
+                          form.setValue('фактический_адрес', street.value);
+                          setOpen(false);
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            'mr-2 h-4 w-4',
+                            street.value === field.value
+                              ? 'opacity-100'
+                              : 'opacity-0',
+                          )}
+                        />
+                        {street.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <FormDescription>
+              Если вашего адреса нет. Позвоните по телефону 112.
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </>
   );
 };

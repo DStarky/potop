@@ -1,27 +1,43 @@
-import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 import {
-  FormItem,
   FormControl,
+  FormField,
+  FormItem,
   FormLabel,
   FormMessage,
-  FormField,
 } from '../ui/form';
+import { Input } from '../ui/input';
 
-interface FinishFormI {
-  finishFn: () => void;
+interface EntityDataFormI {
   form: any;
 }
 
-const FinishForm = ({ finishFn, form }: FinishFormI) => {
+const INNForm = ({ form }: EntityDataFormI) => {
   return (
     <>
-      <h3 className='text-xl font-bold pt-6'>Выражаю согласие</h3>
+      <div className='flex flex-col gap-4 items-start'>
+        <FormField
+          control={form.control}
+          name='инн'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ИНН*</FormLabel>
+              <FormControl>
+                <Input placeholder='ИНН организации' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button className='bg-blue-500 hover:bg-blue-400'>Проверить</Button>
+      </div>
+      
+      <h3 className='text-xl font-bold pt-6'>Запрашиваемая субсидия</h3>
 
       <FormField
         control={form.control}
-        name='согласие_сведения'
+        name='субсидия_возобновление'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -32,8 +48,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                Подтверждаю, что все изложенные в заявке и прилагаемых
-                документах сведения полные и достоверные
+                Субсидия на возобновление предпринимательской деятельности
               </FormLabel>
               <FormMessage />
             </div>
@@ -42,7 +57,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_порядок'
+        name='субсидия_финансовая'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -53,8 +68,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                С порядком и условиями предоставления субсидии ознакомлен и
-                согласен
+                Финансовая поддержка трудовой занятости
               </FormLabel>
               <FormMessage />
             </div>
@@ -63,7 +77,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_условие'
+        name='субсидия_льгота'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -74,19 +88,15 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                Нажимая ”Отправить заявление” я принимаю условия <Link href='#' className='underline'>соглашения о признании простой электронной подписи</Link>
+                Заявка на льготный займ по программе ”Инвестиционные проекты в
+                условиях чрезвычайных ситуаций”
               </FormLabel>
               <FormMessage />
             </div>
           </FormItem>
         )}
       />
-      <div className='flex justify-center'>
-        <Button type='submit' onClick={() => finishFn()}>
-          Отправить заявление
-        </Button>
-      </div>
     </>
   );
 };
-export default FinishForm;
+export default INNForm;

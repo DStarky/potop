@@ -17,20 +17,7 @@ const BankForm = ({ form }: BankFormI) => {
     <>
       <FormField
         control={form.control}
-        name='subsidy'
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Размер ожидаемой субсидии</FormLabel>
-            <FormControl>
-              <Input placeholder='Размер ожидаемой субсидии...' {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name='bank_name'
+        name='наименование_банка'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Наименование банка*</FormLabel>
@@ -43,7 +30,7 @@ const BankForm = ({ form }: BankFormI) => {
       />
       <FormField
         control={form.control}
-        name='bank_inn'
+        name='инн_банка'
         render={({ field }) => (
           <FormItem>
             <FormLabel>ИНН банка*</FormLabel>
@@ -56,7 +43,7 @@ const BankForm = ({ form }: BankFormI) => {
       />
       <FormField
         control={form.control}
-        name='bank_kpp'
+        name='кпп_банка'
         render={({ field }) => (
           <FormItem>
             <FormLabel>КПП банка*</FormLabel>
@@ -70,7 +57,7 @@ const BankForm = ({ form }: BankFormI) => {
       />
       <FormField
         control={form.control}
-        name='bank_correspondent_account'
+        name='корреспондирующий_счет'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Корреспондирующий счет банка*</FormLabel>
@@ -83,7 +70,7 @@ const BankForm = ({ form }: BankFormI) => {
       />
       <FormField
         control={form.control}
-        name='bank_account'
+        name='расчетный_счет'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Расчетный счет</FormLabel>

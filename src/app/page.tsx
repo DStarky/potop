@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -21,6 +22,9 @@ export default function Home() {
                 className='rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
               >
                 Войти
+              </Link>
+              <Link href='#'>
+                <Button variant='outline'>Публичный реестр</Button>
               </Link>
             </div>
           </div>
