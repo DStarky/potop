@@ -6,23 +6,22 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 
-import { testDefaultValues } from '@/constants/defaultValues';
+import { testDefaultValues as defaultValues } from '@/constants/defaultValues';
 
-import AddressForm from './formSteps/AddressForm';
+import { createSubmission } from '@/actions';
+import { requestFormSchema } from '@/lib/requestFormSchema';
+import { StepI } from '@/types';
+import { mapFormValuesToFormData } from '@/utils/mapFormValues';
+import { useRef } from 'react';
 import AgreementForm from './formSteps/AgreementForm';
 import BankForm from './formSteps/BankForm';
 import EntityDataForm from './formSteps/EntityDataForm';
-import EntityForm from './formSteps/EntityForm';
 import FilesForm from './formSteps/FilesForm';
 import FinishForm from './formSteps/FinishForm';
-import RecipientForm from './formSteps/RecipientForm';
-import { Form } from './ui/form';
-import { requestFormSchema } from '@/lib/requestFormSchema';
-import { StepI } from '@/types';
-import { createSubmission } from '@/actions';
-import { useRef } from 'react';
-import { mapFormValuesToFormData } from '@/utils/mapFormValues';
 import INNForm from './formSteps/INNForm';
+import RecipientForm from './formSteps/RecipientForm';
+import SubsidyForm from './formSteps/SubsidyForm';
+import { Form } from './ui/form';
 
 interface RequestFormProps {
   steps: StepI[];
@@ -37,7 +36,7 @@ export function RequestForm({
 }: RequestFormProps) {
   const form = useForm<z.infer<typeof requestFormSchema>>({
     resolver: zodResolver(requestFormSchema),
-    defaultValues: testDefaultValues,
+    defaultValues,
   });
 
   function onSubmit(values: z.infer<typeof requestFormSchema>) {
@@ -77,7 +76,6 @@ export function RequestForm({
       <form
         action={createSubmission}
         ref={formRef}
-        encType='multipart/form-data'
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit((values: any) => {
@@ -93,13 +91,19 @@ export function RequestForm({
         {currentStep === 0 && <RecipientForm form={form} />}
         {currentStep === 1 && <INNForm form={form} />}
         {currentStep === 2 && <EntityDataForm form={form} />}
-        {currentStep === 3 && <BankForm form={form} />}
-        {currentStep === 4 && <AgreementForm form={form} />}
-        <FilesForm hidden={currentStep != 5} form={form} />
-        {currentStep === 6 && <FinishForm form={form} finishFn={submitStep} />}
+        {currentStep === 3 && <SubsidyForm form={form} />}
+        {currentStep === 4 && <BankForm form={form} />}
+        {currentStep === 5 && <AgreementForm form={form} />}
+        <FilesForm hidden={currentStep != 6} form={form} />
+        {currentStep === 7 && <FinishForm form={form} finishFn={submitStep} />}
 
         <div className='flex justify-between gap-4 pt-4'>
-          <Button type='button' onClick={prevStep} disabled={currentStep === 0}>
+          <Button
+            type='button'
+            onClick={prevStep}
+            disabled={currentStep === 0}
+            className='bg-gray-300 hover:bg-gray-500'
+          >
             Вернуться
           </Button>
           <Button

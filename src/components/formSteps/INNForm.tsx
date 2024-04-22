@@ -16,10 +16,10 @@ interface EntityDataFormI {
 const INNForm = ({ form }: EntityDataFormI) => {
   return (
     <>
-      <div className='flex flex-col gap-4 items-start'>
+      <div className='flex  items-center justify-center gap-4'>
         <FormField
           control={form.control}
-          name='инн'
+          name='inn'
           render={({ field }) => (
             <FormItem>
               <FormLabel>ИНН*</FormLabel>
@@ -30,14 +30,26 @@ const INNForm = ({ form }: EntityDataFormI) => {
             </FormItem>
           )}
         />
-        <Button className='bg-blue-500 hover:bg-blue-400'>Проверить</Button>
+        <FormField
+          control={form.control}
+          name='secret_key'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Секретный код*</FormLabel>
+              <FormControl>
+                <Input placeholder='Секретный код' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
-      
+      {/* 
       <h3 className='text-xl font-bold pt-6'>Запрашиваемая субсидия</h3>
 
       <FormField
         control={form.control}
-        name='субсидия_возобновление'
+        name='subsidy_recovery'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -57,7 +69,7 @@ const INNForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='субсидия_финансовая'
+        name='subsidy_finance'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -77,7 +89,7 @@ const INNForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='субсидия_льгота'
+        name='subsidy_benefits'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -95,7 +107,7 @@ const INNForm = ({ form }: EntityDataFormI) => {
             </div>
           </FormItem>
         )}
-      />
+      /> */}
     </>
   );
 };

@@ -37,6 +37,7 @@ export interface RequestI {
   bank_name: string; // Наименование банка
   bank_inn: string; // ИНН банка
   bank_kpp: string; // КПП банка
+  bank_bik: string; // КПП банка
   bank_correspondent_account: string; // Корреспондирующий счет банка
   bank_account: string; // Расчетный счет
 

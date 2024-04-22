@@ -17,7 +17,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
     <>
       <FormField
         control={form.control}
-        name='согласие_офшоры'
+        name='agreement_offshore'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -45,7 +45,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_терроризм'
+        name='agreement_terror'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -67,7 +67,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_оон'
+        name='agreement_oon'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -92,7 +92,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_бюджет'
+        name='agreement_budget'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -116,7 +116,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_иноагент'
+        name='agreement_agent'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -138,7 +138,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_задолженность'
+        name='agreement_debt'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -163,7 +163,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_реорганизация'
+        name='agreement_reorganization'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -192,7 +192,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_дисквалификация'
+        name='agreement_disqualification'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -222,7 +222,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
 
       <FormField
         control={form.control}
-        name='согласие_проверки'
+        name='agreement_check'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -248,7 +248,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_данные'
+        name='agreement_data'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -268,7 +268,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_налоговая'
+        name='agreement_taxation'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -291,7 +291,7 @@ const AgreementForm = ({ form }: AgreementFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_интернет'
+        name='agreement_internet'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>

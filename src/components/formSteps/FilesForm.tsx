@@ -1,13 +1,15 @@
+import Link from 'next/link';
 
 import { RequestFormSchema } from '@/lib/requestFormSchema';
 import { cn } from '@/lib/utils';
 import { UseFormReturn } from 'react-hook-form';
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
 
@@ -21,7 +23,7 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
     <div className={cn('space-y-8', hidden && 'hidden')}>
       <FormField
         control={form.control}
-        name='документ_паспорт'
+        name='document_passport'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Копия паспорта*</FormLabel>
@@ -41,7 +43,7 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
       />
       <FormField
         control={form.control}
-        name='документ_копия'
+        name='document_copy'
         render={({ field }) => (
           <FormItem>
             <FormLabel>
@@ -64,10 +66,16 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
       />
       <FormField
         control={form.control}
-        name='документ_расчет'
+        name='document_calc'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Справка-расчет работодателя*</FormLabel>
+            <FormLabel>
+              Справка-расчет работодателя (форму скачать можно{' '}
+              <Link href='#' className='underline'>
+                тут
+              </Link>
+              )*
+            </FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -84,12 +92,16 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
       />
       <FormField
         control={form.control}
-        name='документ_сведения'
+        name='document_info'
         render={({ field }) => (
           <FormItem>
             <FormLabel>
               Форма налоговой отчетности ”Персонифицированные сведения о
-              физических лицах”*
+              физических лицах” <br />(
+              <Link href='#' className='underline'>
+                Как получить форму за 5 минут
+              </Link>
+              )*
             </FormLabel>
             <FormControl>
               <Input
@@ -108,12 +120,16 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
 
       <FormField
         control={form.control}
-        name='документ_персональные_данные'
+        name='document_personal'
         render={({ field }) => (
           <FormItem>
             <FormLabel>
               Согласие на предоставление персональных данных третьим лицам (по
-              работникам)
+              работникам) <br /> (форму скачать можно{' '}
+              <Link href='#' className='underline'>
+                тут
+              </Link>
+              )
             </FormLabel>
             <FormControl>
               <Input

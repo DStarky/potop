@@ -6,12 +6,11 @@ export interface Cyrillic {
   телефон: string;
   электронный_адрес: string;
 
-  инн: string; 
+  инн: string;
 
-  субсидия_сотрудники: boolean;
-  субсидия_нпд: boolean;
-  субсидия_льготы: boolean;
-  субсилия_займы: boolean;
+  субсидия_возобновление: boolean;
+  субсидия_финансовая: boolean;
+  субсидия_льгота: boolean;
 
   наименование_юл: string;
   огрн: string;
@@ -28,6 +27,7 @@ export interface Cyrillic {
   наименование_банка: string;
   инн_банка: string;
   кпп_банка: string;
+  бик_банка: string;
   корреспондирующий_счет: string;
   расчетный_счет: string;
 

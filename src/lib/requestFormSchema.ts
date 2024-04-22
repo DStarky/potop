@@ -27,42 +27,58 @@ export const zPhone = z.string().transform((arg, ctx) => {
 const requiredMessage = 'Обязательное поле';
 const agreementMessage = 'Необходимо оставить согласие';
 
+const additionalAddressObj = z.object({
+  apartment: z.string().optional(),
+  building: z.string().min(1, {
+    message: requiredMessage,
+  }),
+  street: z.string().min(1, {
+    message: requiredMessage,
+  }),
+  city: z.string().min(1, {
+    message: requiredMessage,
+  }),
+  municipality: z.string().min(1, {
+    message: requiredMessage,
+  }),
+});
+
 export const requestFormSchema = z.object({
-  имя_заявителя: z.string().min(1, {
+  firstname: z.string().min(1, {
     message: requiredMessage,
   }),
-  фамилия_заявителя: z.string().min(1, {
+  lastname: z.string().min(1, {
     message: requiredMessage,
   }),
-  отчество_заявителя: z.string().optional(),
-  телефон: zPhone,
-  электронный_адрес: z
+  middlename: z.string().optional(),
+  phone: zPhone,
+  email: z
     .string()
     .min(1, { message: requiredMessage })
     .email('Неправильный адрес электронной почты')
     .refine((email) => email.endsWith('.ru'), 'Email должен быть в зоне .ru'),
 
-  инн: z.string().min(10, { message: 'Минимум 10 цифр' }), // пока так
+  inn: z.string().min(10, { message: 'Минимум 10 цифр' }), 
+  secret_key: z.string().min(1, { message: requiredMessage }), 
 
-  субсидия_возобновление: z.boolean().optional(),
-  субсидия_финансовая: z.boolean().optional(),
-  субсидия_льгота: z.boolean().optional(),
+  subsidy_recovery: z.boolean().optional(),
+  subsidy_finance: z.boolean().optional(),
+  subsidy_industry: z.boolean().optional(),
+  subsidy_special: z.boolean().optional(),
+  subsidy_tax: z.boolean().optional(),
+  subsidy_holidays: z.boolean().optional(),
 
-  наименование_юл: z.string().min(1, { message: requiredMessage }),
-  огрн: z.string().min(1, { message: requiredMessage }),
-  кпп: z.string().min(1, { message: requiredMessage }),
+  entity_name: z.string().min(1, { message: requiredMessage }),
+  ogrn: z.string().min(1, { message: requiredMessage }),
+  kpp: z.string().min(1, { message: requiredMessage }),
 
-  юридический_адрес_муниципалитет: z
-    .string()
-    .min(1, { message: requiredMessage }),
-  юридический_адрес_населенный_пункт: z
-    .string()
-    .min(1, { message: requiredMessage }),
-  юридический_адрес_улица: z.string().min(1, { message: requiredMessage }),
-  юридический_адрес_номер_дома: z.string().min(1, { message: requiredMessage }),
-  юридический_адрес_номер_квартиры: z.string().optional(),
+  address_municipality: z.string().min(1, { message: requiredMessage }),
+  address_city: z.string().min(1, { message: requiredMessage }),
+  address_street: z.string().min(1, { message: requiredMessage }),
+  address_building: z.string().min(1, { message: requiredMessage }),
+  address_apartment: z.string().optional(),
 
-  фактический_адрес: z
+  fact_address: z
     .string({
       required_error: requiredMessage,
     })
@@ -71,63 +87,74 @@ export const requestFormSchema = z.object({
       'Адрес должен находиться в реестре',
     ),
 
-  наименование_банка: z.string().min(1, { message: requiredMessage }),
-  инн_банка: z.string().min(1, { message: requiredMessage }),
-  кпп_банка: z.string().min(1, { message: requiredMessage }),
-  корреспондирующий_счет: z.string().min(1, { message: requiredMessage }),
-  расчетный_счет: z.string().min(1, { message: requiredMessage }),
+  additional_addresses: z.array(additionalAddressObj),
+  eployees_count: z.string().min(1, { message: requiredMessage }),
 
-  согласие_офшоры: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
-  согласие_терроризм: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
-  согласие_оон: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
-  согласие_бюджет: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
-  согласие_иноагент: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
-  согласие_задолженность: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
-  согласие_реорганизация: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
-  согласие_дисквалификация: z.boolean().refine((value) => value === true, {
-    message: agreementMessage,
-  }),
+  okved: z.string().optional(),
+  without_okved: z.boolean().optional(),
 
-  согласие_проверки: z.boolean().refine((value) => value === true, {
+  bank_name: z.string().min(1, { message: requiredMessage }),
+  bank_inn: z.string().min(1, { message: requiredMessage }),
+  bank_kpp: z.string().min(1, { message: requiredMessage }),
+  bank_bik: z.string().min(1, { message: requiredMessage }),
+  corresponding_account: z.string().min(1, { message: requiredMessage }),
+  settlement_account: z
+    .string()
+    .min(20, { message: 'Укажите не менее 20 цифр' }),
+
+  bank_names: z.string().min(1, { message: requiredMessage }).array(),
+
+  agreement_offshore: z.boolean().refine((value) => value === true, {
     message: agreementMessage,
   }),
-  согласие_данные: z.boolean().refine((value) => value === true, {
+  agreement_terror: z.boolean().refine((value) => value === true, {
     message: agreementMessage,
   }),
-  согласие_налоговая: z.boolean().refine((value) => value === true, {
+  agreement_oon: z.boolean().refine((value) => value === true, {
     message: agreementMessage,
   }),
-  согласие_интернет: z.boolean().refine((value) => value === true, {
+  agreement_budget: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
+  agreement_agent: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
+  agreement_debt: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
+  agreement_reorganization: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
+  agreement_disqualification: z.boolean().refine((value) => value === true, {
     message: agreementMessage,
   }),
 
-  документ_паспорт: z.any().optional(),
-  документ_копия: z.any().optional(),
-  документ_расчет: z.any().optional(),
-  документ_сведения: z.any().optional(),
-  документ_персональные_данные: z.any().optional(),
+  agreement_check: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
+  agreement_data: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
+  agreement_taxation: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
+  agreement_internet: z.boolean().refine((value) => value === true, {
+    message: agreementMessage,
+  }),
 
-  согласие_сведения: z.boolean().refine((value) => value === true, {
+  document_passport: z.any().optional(),
+  document_copy: z.any().optional(),
+  document_calc: z.any().optional(),
+  document_info: z.any().optional(),
+  document_personal: z.any().optional(),
+
+  agreement_info: z.boolean().refine((value) => value === true, {
     message: agreementMessage,
   }),
-  согласие_порядок: z.boolean().refine((value) => value === true, {
+  agreement_procedure: z.boolean().refine((value) => value === true, {
     message: agreementMessage,
   }),
-  согласие_условие: z.boolean().refine((value) => value === true, {
+  agreement_condition: z.boolean().refine((value) => value === true, {
     message: agreementMessage,
   }),
 });

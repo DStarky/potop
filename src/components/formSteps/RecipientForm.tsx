@@ -18,7 +18,7 @@ const RecipientForm = ({ form }: RecipientFormI) => {
       <div className='flex w-full justify-between gap-4'>
         <FormField
           control={form.control}
-          name='имя_заявителя'
+          name='firstname'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Имя*</FormLabel>
@@ -31,7 +31,7 @@ const RecipientForm = ({ form }: RecipientFormI) => {
         />
         <FormField
           control={form.control}
-          name='фамилия_заявителя'
+          name='lastname'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Фамилия*</FormLabel>
@@ -44,7 +44,7 @@ const RecipientForm = ({ form }: RecipientFormI) => {
         />
         <FormField
           control={form.control}
-          name='отчество_заявителя'
+          name='middlename'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Отчество</FormLabel>
@@ -58,7 +58,7 @@ const RecipientForm = ({ form }: RecipientFormI) => {
       </div>
       <FormField
         control={form.control}
-        name='телефон'
+        name='phone'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Телефон*</FormLabel>
@@ -71,7 +71,7 @@ const RecipientForm = ({ form }: RecipientFormI) => {
       />
       <FormField
         control={form.control}
-        name='электронный_адрес'
+        name='email'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Email*</FormLabel>

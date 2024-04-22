@@ -21,7 +21,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
 
       <FormField
         control={form.control}
-        name='согласие_сведения'
+        name='agreement_info'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -42,7 +42,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_порядок'
+        name='agreement_procedure'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -63,7 +63,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
       />
       <FormField
         control={form.control}
-        name='согласие_условие'
+        name='agreement_condition'
         render={({ field }) => (
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
@@ -74,7 +74,10 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
             </FormControl>
             <div className='space-y-1 leading-none'>
               <FormLabel className='text-sm text-muted-foreground'>
-                Нажимая ”Отправить заявление” я принимаю условия <Link href='#' className='underline'>соглашения о признании простой электронной подписи</Link>
+                Нажимая ”Отправить заявление” я принимаю условия{' '}
+                <Link href='#' className='underline'>
+                  соглашения о признании простой электронной подписи
+                </Link>
               </FormLabel>
               <FormMessage />
             </div>

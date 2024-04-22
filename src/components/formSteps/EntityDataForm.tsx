@@ -1,38 +1,43 @@
-import { useState } from 'react';
+import { Plus } from 'lucide-react';
+import { useFieldArray } from 'react-hook-form';
+import { Button } from '../ui/button';
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Button } from '../ui/button';
-import { cn } from '@/lib/utils';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { streets } from '@/constants/options';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '../ui/command';
+import AdditionalAddress from './AdditionalAddress';
+import FactAdress from './FactAdress';
+import OKVEDForm from './OKVEDForm';
 
 interface EntityDataFormI {
   form: any;
 }
 
 const EntityDataForm = ({ form }: EntityDataFormI) => {
-  const [open, setOpen] = useState(false);
+  const { control, register } = form;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'additional_addresses', // имя вашего массива дополнительных адресов
+  });
+
+  const addButtonHandler = async () => {
+    const output = await form.trigger('additional_addresses', {
+      shouldFocus: true,
+    }); // Провалидирует уже введенные адреса
+    if (!output) return; // Если провалидация не прошла то дальше не идем
+    append({});
+  };
 
   return (
     <>
       <FormField
         control={form.control}
-        name='наименование_юл'
+        name='entity_name'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Наименование ЮЛ/ФИО*</FormLabel>
@@ -45,7 +50,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='огрн'
+        name='ogrn'
         render={({ field }) => (
           <FormItem>
             <FormLabel>ОГРН (ОГРНИП)*</FormLabel>
@@ -59,7 +64,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='кпп'
+        name='kpp'
         render={({ field }) => (
           <FormItem>
             <FormLabel>КПП*</FormLabel>
@@ -73,7 +78,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       <h3 className='text-xl font-bold pt-6'>Юридический адрес</h3>
       <FormField
         control={form.control}
-        name='юридический_адрес_муниципалитет'
+        name='address_municipality'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Муниципальное образование*</FormLabel>
@@ -86,7 +91,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='юридический_адрес_населенный_пункт'
+        name='address_city'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Населенный пункт*</FormLabel>
@@ -99,7 +104,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       />
       <FormField
         control={form.control}
-        name='юридический_адрес_улица'
+        name='address_street'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Улица*</FormLabel>
@@ -114,7 +119,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
       <div className='flex gap-4'>
         <FormField
           control={form.control}
-          name='юридический_адрес_номер_дома'
+          name='address_building'
           render={({ field }) => (
             <FormItem className='flex-grow'>
               <FormLabel>Номер дома*</FormLabel>
@@ -127,7 +132,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
         />
         <FormField
           control={form.control}
-          name='юридический_адрес_номер_квартиры'
+          name='address_apartment'
           render={({ field }) => (
             <FormItem className='flex-grow'>
               <FormLabel>Номер квартиры</FormLabel>
@@ -139,75 +144,53 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
           )}
         />
       </div>
-
       <h3 className='text-xl font-bold pt-6'>
         Адрес(а) фактического осуществления деятельности в зоне ЧС
       </h3>
 
+      <FactAdress form={form} />
+
+      {fields.map((item, index) => (
+        <AdditionalAddress
+          key={item.id}
+          form={form}
+          index={index}
+          remove={remove}
+        />
+      ))}
+
+      <div className='flex gap-4 items-center'>
+        <Button
+          variant='outline'
+          size='icon'
+          onClick={addButtonHandler}
+          type='button'
+        >
+          <Plus className='h-4 w-4' />
+        </Button>
+        <p>Указать дополнительный адрес</p>
+      </div>
+
       <FormField
         control={form.control}
-        name='фактический_адрес'
+        name='eployees_count'
         render={({ field }) => (
-          <FormItem className='flex flex-col'>
-            <FormLabel>Выберите адрес</FormLabel>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <FormControl>
-                  <Button
-                    variant='outline'
-                    role='combobox'
-                    className={cn(
-                      'w-[200px] justify-between',
-                      !field.value && 'text-muted-foreground',
-                    )}
-                  >
-                    {field.value
-                      ? streets.find((street) => street.value === field.value)
-                          ?.label
-                      : 'Выберите адрес'}
-                    <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-                  </Button>
-                </FormControl>
-              </PopoverTrigger>
-              <PopoverContent className='w-[200px] p-0'>
-                <Command>
-                  <CommandInput placeholder='Найдите адрес...' />
-                  <CommandEmpty>
-                    Улица не найдена. Обратитесь в контактный центр по телефону
-                    112
-                  </CommandEmpty>
-                  <CommandGroup>
-                    {streets.map((street) => (
-                      <CommandItem
-                        value={street.label}
-                        key={street.value}
-                        onSelect={() => {
-                          form.setValue('фактический_адрес', street.value);
-                          setOpen(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            'mr-2 h-4 w-4',
-                            street.value === field.value
-                              ? 'opacity-100'
-                              : 'opacity-0',
-                          )}
-                        />
-                        {street.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            <FormDescription>
-              Если вашего адреса нет. Позвоните по телефону 112.
-            </FormDescription>
+          <FormItem className='flex-grow'>
+            <FormLabel>Численность работников*</FormLabel>
+            <FormControl>
+              <Input placeholder='Численность работников' {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
+      <p>
+        Для проверки условий для получения льготного займа по программе
+        ”Инвестиционные проекты в условиях чрезвычайной ситуации” заполните поля
+        ниже:
+      </p>
+
+      <OKVEDForm form={form} />
     </>
   );
 };
