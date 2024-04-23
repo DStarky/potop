@@ -1,7 +1,7 @@
 import { serverEnv } from '@/utils/serverEnv';
 import { submissions } from './data';
 
-export async function createSubmission(data) {
+export async function createSubmission(data: any) {
   const body = data;
   const res = await fetch(serverEnv.BITRIX_BASE_URL, { method: 'POST', body });
 

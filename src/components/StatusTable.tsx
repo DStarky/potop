@@ -10,6 +10,7 @@ import {
 
 interface StatusTableI {
   statuses: Status[];
+  setOpen: any;
 }
 
 interface Status {
