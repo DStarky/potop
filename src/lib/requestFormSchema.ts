@@ -78,14 +78,14 @@ export const requestFormSchema = z.object({
   address_building: z.string().min(1, { message: requiredMessage }),
   address_apartment: z.string().optional(),
 
-  fact_address: z
-    .string({
-      required_error: requiredMessage,
-    })
-    .refine(
-      (val) => val !== 'отсутствует' && val !== '',
-      'Адрес должен находиться в реестре',
-    ),
+  fact_address: z.string().optional(),
+    // .string({
+    //   required_error: requiredMessage,
+    // })
+    // .refine(
+    //   (val) => val !== 'отсутствует' && val !== '',
+    //   'Адрес должен находиться в реестре',
+    // ),
 
   additional_addresses: z.array(additionalAddressObj),
   eployees_count: z.string().min(1, { message: requiredMessage }),

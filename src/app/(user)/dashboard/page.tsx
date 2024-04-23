@@ -1,5 +1,4 @@
-'use client';
-import { RequestsTable } from '@/components/RequestsTable';
+import { SubmissionsTable } from '@/components/SubmissionsTable/SubmissionsTable';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -10,7 +9,7 @@ const LKPage = () => {
         Личный кабинет Юридического лица
       </h2>
       <h3 className='text-xl font-bold mb-6'>Мои заявки</h3>
-      <RequestsTable />
+      <SubmissionsTable />
       <Link href='/request'>
         <Button className='mt-12'>Создать заявку</Button>
       </Link>

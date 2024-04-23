@@ -1,11 +1,4 @@
-import {
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-  DialogTrigger,
-} from '@radix-ui/react-dialog';
-import { Button } from './ui/button';
-import { DialogHeader, DialogFooter, DialogClose } from './ui/dialog';
+import { Badge } from './ui/badge';
 import {
   Table,
   TableBody,
@@ -14,11 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from './ui/table';
-import { Badge } from './ui/badge';
 
 interface StatusTableI {
   statuses: Status[];
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Status {
@@ -26,7 +17,7 @@ interface Status {
   status: string;
 }
 
-const StatusTable = ({ statuses, setOpen }: StatusTableI) => {
+const StatusTable = ({ statuses }: StatusTableI) => {
   return (
     <div className='flex flex-col gap-4 items-center'>
       <Table>
@@ -51,8 +42,6 @@ const StatusTable = ({ statuses, setOpen }: StatusTableI) => {
           ))}
         </TableBody>
       </Table>
-
-      <Button onClick={() => setOpen(false)}>Закрыть</Button>
     </div>
   );
 };

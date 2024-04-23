@@ -15,7 +15,7 @@ interface RecipientFormI {
 const RecipientForm = ({ form }: RecipientFormI) => {
   return (
     <>
-      <div className='flex w-full justify-between gap-4'>
+      <div className='flex w-full justify-between gap-4 max-sm:flex-col'>
         <FormField
           control={form.control}
           name='firstname'

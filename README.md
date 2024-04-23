@@ -13,6 +13,7 @@ npm i # установить зависимости
 Cкачать и поместить бинарник [Pocketbase](https://pocketbase.io/docs/) в `./pocketbase`.
 
 ```bash
+# настроить конфиг
 cp .env.example .env
 
 # запустить Pocketbase

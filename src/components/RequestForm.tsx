@@ -22,6 +22,7 @@ import INNForm from './formSteps/INNForm';
 import RecipientForm from './formSteps/RecipientForm';
 import SubsidyForm from './formSteps/SubsidyForm';
 import { Form } from './ui/form';
+import { useRouter } from 'next/navigation';
 
 interface RequestFormProps {
   steps: StepI[];
@@ -34,6 +35,8 @@ export function RequestForm({
   currentStep,
   setCurrentStep,
 }: RequestFormProps) {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof requestFormSchema>>({
     resolver: zodResolver(requestFormSchema),
     defaultValues,
@@ -65,6 +68,7 @@ export function RequestForm({
 
   const submitStep = async () => {
     await form.handleSubmit(onSubmit)();
+    router.push('/success');
   };
 
   const prevStep = () => {
@@ -109,6 +113,7 @@ export function RequestForm({
           <Button
             type='button'
             onClick={nextStep}
+            className={`${currentStep === steps.length - 1 ? 'hidden' : ''}`}
             disabled={currentStep === steps.length - 1}
           >
             Продолжить

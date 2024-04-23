@@ -3,18 +3,18 @@
 // https://github.com/pocketbase/js-sdk
 // https://pocketbase.io/docs/client-side-sdks/
 
+import { publicEnv } from '@/utils/publicEnv';
 import { TypedPocketBase } from '@/types/pocketbase-types';
 import { cookies } from 'next/headers';
 import PocketBase from 'pocketbase';
 import { POCKETBASE_COOKIE_KEY } from './constants';
-import { env } from '@/lib/env';
 
 // Pocketbase SDK for server side
 /**
  * Возвращает Pocketbase SDK для серверной части
  */
 export function getServerPocketbase() {
-  if (!env.POCKETBASE_API_URL) {
+  if (!publicEnv.POCKETBASE_API_URL) {
     throw new Error('Pocketbase API url not defined !');
   }
 
@@ -25,7 +25,9 @@ export function getServerPocketbase() {
   }
 
   const cookieStore = cookies();
-  const client = new PocketBase(env.POCKETBASE_API_URL) as TypedPocketBase;
+  const client = new PocketBase(
+    publicEnv.POCKETBASE_API_URL,
+  ) as TypedPocketBase;
 
   if (cookieStore) {
     const authCookie = cookieStore.get(POCKETBASE_COOKIE_KEY);

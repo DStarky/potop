@@ -116,7 +116,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
           </FormItem>
         )}
       />
-      <div className='flex gap-4'>
+      <div className='flex gap-4 items-end'>
         <FormField
           control={form.control}
           name='address_building'
