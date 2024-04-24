@@ -90,7 +90,7 @@ const OKVEDForm = ({ form }: OKVEDFormI) => {
         )}
       />
       <p>
-        <Link href='/okved-file.pdf' className='underline'>
+        <Link href='/okved-file.pdf' target='_blank' className='underline'>
           Как узнать свой ОКВЭД за 5 минут
         </Link>
       </p>

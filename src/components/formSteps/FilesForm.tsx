@@ -99,7 +99,7 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
             <FormLabel>
               Форма налоговой отчетности ”Персонифицированные сведения о
               физических лицах” <br />(
-              <Link href='#' className='underline'>
+              <Link href='/form.pdf' className='underline'>
                 Как получить форму за 5 минут
               </Link>
               )*
@@ -126,11 +126,7 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
           <FormItem>
             <FormLabel>
               Согласие на предоставление персональных данных третьим лицам (по
-              работникам) <br /> (форму скачать можно{' '}
-              <Link href='#' className='underline'>
-                тут
-              </Link>
-              )
+              работникам)
             </FormLabel>
             <FormControl>
               <Input

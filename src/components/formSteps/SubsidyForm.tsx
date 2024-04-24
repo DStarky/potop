@@ -46,7 +46,6 @@ const SubsidyForm = ({ form, entityForm }: SubsidyFormI) => {
         control={form.control}
         name='subsidy_finance'
         render={({ field }) => (
-          <>
             <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
               <FormControl className='mt-1'>
                 <Checkbox
@@ -70,7 +69,6 @@ const SubsidyForm = ({ form, entityForm }: SubsidyFormI) => {
                 <FormMessage />
               </div>
             </FormItem>
-          </>
         )}
       />
       <FormField

@@ -41,14 +41,18 @@ const page = () => {
           <li>
             Форма налоговой отчетности «Персонифицированные сведения о
             физических лицах» (
-            <Link href='#' className='underline italic text-blue-500'>
+            <Link
+              href='/form.pdf'
+              target='_blank'
+              className='underline italic text-blue-500'
+            >
               Как получить форму за 5 минут
             </Link>
             )
           </li>
           <li>
             Согласие на предоставление персональных данных третьим лицам (по
-            работникам) 
+            работникам)
             {/* (
             <Link href='#' className='underline italic text-blue-500'>
               форму можно скачать тут
