@@ -46,23 +46,31 @@ const SubsidyForm = ({ form, entityForm }: SubsidyFormI) => {
         control={form.control}
         name='subsidy_finance'
         render={({ field }) => (
-          <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
-            <FormControl className='mt-1'>
-              <Checkbox
-                disabled={!allowFinance}
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <div className='space-y-1 leading-none'>
-              <FormLabel
-                className={`text-sm  ${allowFinance ? 'text-muted-foreground' : 'text-gray-300'}`}
-              >
-                Финансовая поддержка трудовой занятости
-              </FormLabel>
-              <FormMessage />
-            </div>
-          </FormItem>
+          <>
+            <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
+              <FormControl className='mt-1'>
+                <Checkbox
+                  disabled={!allowFinance}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className='space-y-1 leading-none'>
+                <FormLabel
+                  className={`text-sm  ${allowFinance ? 'text-muted-foreground' : 'text-gray-300'}`}
+                >
+                  Финансовая поддержка трудовой занятости
+                  {!allowFinance && (
+                    <span className='italic'>
+                      {' '}
+                      (к сожалению, данная мера поддержки Вам недоступна)
+                    </span>
+                  )}
+                </FormLabel>
+                <FormMessage />
+              </div>
+            </FormItem>
+          </>
         )}
       />
       <FormField
@@ -81,7 +89,12 @@ const SubsidyForm = ({ form, entityForm }: SubsidyFormI) => {
               <FormLabel
                 className={`text-sm  ${allowIndustrty ? 'text-muted-foreground' : 'text-gray-300'}`}
               >
-                Льготные займы Фонда развития промышленности
+                Льготные займы Фонда развития промышленности{' '}
+                {!allowIndustrty && (
+                  <span className='italic'>
+                    (к сожалению, данная мера поддержки Вам недоступна)
+                  </span>
+                )}
               </FormLabel>
               <FormMessage />
             </div>
@@ -106,6 +119,11 @@ const SubsidyForm = ({ form, entityForm }: SubsidyFormI) => {
               >
                 Льготные займы ”Специальный ЧС” по ставке 1% на сумма до 5 млн
                 рублей для МСП
+                {!allowSpecial && (
+                  <span className='italic'>
+                    (к сожалению, данная мера поддержки Вам недоступна)
+                  </span>
+                )}
               </FormLabel>
               <FormMessage />
             </div>

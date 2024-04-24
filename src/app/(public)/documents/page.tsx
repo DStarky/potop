@@ -5,7 +5,7 @@ const page = () => {
   return (
     <div className='max-w-lg mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow-lg'>
       <h2 className='text-xl font-semibold mb-4'>
-        Подача заявки на получение субсидии
+        Какие документы Вам понадобятся
       </h2>
 
       <div className='mb-4'>
@@ -48,16 +48,17 @@ const page = () => {
           </li>
           <li>
             Согласие на предоставление персональных данных третьим лицам (по
-            работникам) (
+            работникам) 
+            {/* (
             <Link href='#' className='underline italic text-blue-500'>
               форму можно скачать тут
             </Link>
-            )
+            ) */}
           </li>
         </ul>
       </div>
 
-      <p className='text-sm text-gray-600'>
+      <p className=' text-gray-600'>
         Больше никаких документов не потребуется!
       </p>
 

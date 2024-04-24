@@ -10,6 +10,7 @@ import {
 
 interface StatusTableI {
   statuses: Status[];
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Status {
