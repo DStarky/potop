@@ -1,43 +1,31 @@
 'use server';
 
-const map = {
-  recipient_first_name: 'firstname',
-  recipient_last_name: 'lastname',
-  recipient_middle_name: 'middlename',
-  recipient_email: 'email',
-  recipient_fax: 'fax',
-  recipient_phone: 'phone',
-  subsidy_amount: 'subsidy',
-};
-
 export async function createSubmission(formData: FormData) {
-  ('use server');
+  'use server';
 
-  // Сорри, потом как нибудь перепишу кодирование это
-
+  async function fileToBase64(file: File | null): Promise<string | null> {
+    if (!file) return null;
+    const bytes = await file.arrayBuffer();
+    return Buffer.from(bytes).toString('base64');
+  }
   const passport: File | null = formData.get(
     'document_passport',
   ) as unknown as File;
-  const bytesPassport = await passport.arrayBuffer();
-  const sendPassport = Buffer.from(bytesPassport).toString('base64');
+  const sendPassport = await fileToBase64(passport);
 
   const copy: File | null = formData.get('document_copy') as unknown as File;
-  const bytesCopy = await copy.arrayBuffer();
-  const sendCopy = Buffer.from(bytesCopy).toString('base64');
+  const sendCopy = await fileToBase64(copy);
 
   const calc: File | null = formData.get('document_calc') as unknown as File;
-  const bytesCalc = await calc.arrayBuffer();
-  const sendCalc = Buffer.from(bytesCalc).toString('base64');
+  const sendCalc = await fileToBase64(calc);
 
   const info: File | null = formData.get('document_info') as unknown as File;
-  const bytesInfo = await info.arrayBuffer();
-  const sendInfo = Buffer.from(bytesInfo).toString('base64');
+  const sendInfo = await fileToBase64(info);
 
   const personal: File | null = formData.get(
     'document_personal',
   ) as unknown as File;
-  const bytesPersonal = await personal.arrayBuffer();
-  const sendPersonal = Buffer.from(bytesPersonal).toString('base64');
+  const sendPersonal = await fileToBase64(personal);
 
   const data = {
     имя_заявителя: formData.get('firstname'),
@@ -98,24 +86,6 @@ export async function createSubmission(formData: FormData) {
   };
 
   console.log(data);
-
-  // const data = {
-  //   // status: ApplicationsStatusOptions['NEW'], // дефолт не ставится в БД
-  //   recipient_first_name: formData.get('firstname'),
-  //   recipient_last_name: formData.get('lastname'),
-  //   recipient_middle_name: formData.get('middlename'),
-  //   recipient_email: formData.get('email'),
-  //   recipient_fax: formData.get('fax'),
-  //   recipient_phone: formData.get('phone'),
-  //   subsidy_amount: formData.get('subsidy'),
-  //   back_account: formData.get('bank_account'),
-  //   doc_id: buffer,
-  //   doc_criteria: formData.get('document_selection'),
-  //   doc_report: formData.get('document_report'),
-  //   doc_owner_proof: formData.get('document_own'),
-  //   doc_damage_proof: formData.get('document_flooding'),
-  // }; //satisfies Partial<ApplicationsRecord>;
-  // // console.log(data);
 
   return;
 }

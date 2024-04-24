@@ -19,7 +19,8 @@ export const zPhone = z.string().transform((arg, ctx) => {
   // when it's not
   ctx.addIssue({
     code: z.ZodIssueCode.custom,
-    message: 'Неправильный формат телефона',
+    message:
+      'Некорректный номер телефона. Введите номер в формате: +7 (999) 999-99-99',
   });
   return z.NEVER;
 });
@@ -58,8 +59,8 @@ export const requestFormSchema = z.object({
     .email('Неправильный адрес электронной почты')
     .refine((email) => email.endsWith('.ru'), 'Email должен быть в зоне .ru'),
 
-  inn: z.string().min(10, { message: 'Минимум 10 цифр' }), 
-  secret_key: z.string().min(1, { message: requiredMessage }), 
+  inn: z.string().min(10, { message: 'Минимум 10 цифр' }),
+  secret_key: z.string().min(1, { message: requiredMessage }),
 
   subsidy_recovery: z.boolean().optional(),
   subsidy_finance: z.boolean().optional(),
@@ -79,16 +80,16 @@ export const requestFormSchema = z.object({
   address_apartment: z.string().optional(),
 
   fact_address: z.string().optional(),
-    // .string({
-    //   required_error: requiredMessage,
-    // })
-    // .refine(
-    //   (val) => val !== 'отсутствует' && val !== '',
-    //   'Адрес должен находиться в реестре',
-    // ),
+  // .string({
+  //   required_error: requiredMessage,
+  // })
+  // .refine(
+  //   (val) => val !== 'отсутствует' && val !== '',
+  //   'Адрес должен находиться в реестре',
+  // ),
 
   additional_addresses: z.array(additionalAddressObj),
-  eployees_count: z.string().min(1, { message: requiredMessage }),
+  employees_count: z.string().min(1, { message: requiredMessage }),
 
   okved: z.string().optional(),
   without_okved: z.boolean().optional(),

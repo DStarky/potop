@@ -26,7 +26,7 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
         name='document_passport'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Копия паспорта*</FormLabel>
+            <FormLabel>Копия или фото паспорта*</FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -47,8 +47,9 @@ const FilesForm = ({ form, hidden }: FilesFormI) => {
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Копия документа, подтверждающего полномочия лица, подписавшего
-              заявку (в случае, если заявка подается не руководителем)*
+              Копия или фото документа, подтверждающего полномочия лица,
+              подписавшего заявку (в случае, если заявка подается не
+              руководителем)*
             </FormLabel>
             <FormControl>
               <Input

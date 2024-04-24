@@ -1,3 +1,4 @@
+import { EntityForm } from '@/types';
 import { Checkbox } from '../ui/checkbox';
 import {
   FormControl,
@@ -9,9 +10,16 @@ import {
 
 interface SubsidyFormI {
   form: any;
+  entityForm: EntityForm;
 }
 
-const SubsidyForm = ({ form }: SubsidyFormI) => {
+const SubsidyForm = ({ form, entityForm }: SubsidyFormI) => {
+  const countEmployees = form.getValues('employees_count');
+  const inn = form.getValues('inn');
+  const allowFinance = entityForm === 'smb' && countEmployees > 0;
+  const allowIndustrty = entityForm === 'smb';
+  const allowSpecial = inn.startsWith('56');
+
   return (
     <>
       <FormField
@@ -26,7 +34,7 @@ const SubsidyForm = ({ form }: SubsidyFormI) => {
               />
             </FormControl>
             <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
+              <FormLabel className='text-sm text-muted-foreground '>
                 Субсидия на возобновление предпринимательской деятельности
               </FormLabel>
               <FormMessage />
@@ -41,12 +49,15 @@ const SubsidyForm = ({ form }: SubsidyFormI) => {
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
               <Checkbox
+                disabled={!allowFinance}
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
             </FormControl>
             <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
+              <FormLabel
+                className={`text-sm  ${allowFinance ? 'text-muted-foreground' : 'text-gray-300'}`}
+              >
                 Финансовая поддержка трудовой занятости
               </FormLabel>
               <FormMessage />
@@ -61,12 +72,15 @@ const SubsidyForm = ({ form }: SubsidyFormI) => {
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
               <Checkbox
+                disabled={!allowIndustrty}
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
             </FormControl>
             <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
+              <FormLabel
+                className={`text-sm  ${allowIndustrty ? 'text-muted-foreground' : 'text-gray-300'}`}
+              >
                 Льготные займы Фонда развития промышленности
               </FormLabel>
               <FormMessage />
@@ -81,12 +95,15 @@ const SubsidyForm = ({ form }: SubsidyFormI) => {
           <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
             <FormControl className='mt-1'>
               <Checkbox
+                disabled={!allowSpecial}
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
             </FormControl>
             <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
+              <FormLabel
+                className={`text-sm  ${allowSpecial ? 'text-muted-foreground' : 'text-gray-300'}`}
+              >
                 Льготные займы ”Специальный ЧС” по ставке 1% на сумма до 5 млн
                 рублей для МСП
               </FormLabel>
@@ -107,7 +124,7 @@ const SubsidyForm = ({ form }: SubsidyFormI) => {
               />
             </FormControl>
             <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
+              <FormLabel className='text-sm text-muted-foreground '>
                 Налоговые льготы
               </FormLabel>
               <FormMessage />
@@ -127,7 +144,7 @@ const SubsidyForm = ({ form }: SubsidyFormI) => {
               />
             </FormControl>
             <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
+              <FormLabel className='text-sm text-muted-foreground '>
                 Кредитные каникулы от 6 до 12 месяцев
               </FormLabel>
               <FormMessage />

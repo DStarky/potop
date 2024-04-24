@@ -64,7 +64,8 @@ export const ENTITY_FORM = [
   'individual entrepreneur',
   'smb',
 ] as const;
-type EntityForm = (typeof ENTITY_FORM)[number];
+
+export type EntityForm = (typeof ENTITY_FORM)[number];
 
 export interface AgreementI {
   name: string;

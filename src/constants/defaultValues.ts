@@ -31,7 +31,7 @@ export const defaultValues = {
   fact_address: '',
 
   additional_addresses: [],
-  eployees_count: '42',
+  employees_count: '42',
 
   bank_name: '',
   bank_inn: '',
@@ -74,15 +74,15 @@ export const testDefaultValues = {
   phone: '+7 (900) 900-99-69',
   email: 'test@test.ru',
 
-  inn: '7725330506',
-  secret_key: '88005553535',
+  inn: '1234567890',
+  secret_key: '0987654321',
 
-  subsidy_recovery: true,
-  subsidy_finance: true,
-  subsidy_industry: true,
-  subsidy_special: true,
-  subsidy_tax: true,
-  subsidy_holidays: true,
+  subsidy_recovery: false,
+  subsidy_finance: false,
+  subsidy_industry: false,
+  subsidy_special: false,
+  subsidy_tax: false,
+  subsidy_holidays: false,
 
   entity_name: 'ООО "Рога и копыта"',
   ogrn: '1167746840073',
@@ -97,7 +97,7 @@ export const testDefaultValues = {
   fact_address: '',
 
   additional_addresses: [],
-  eployees_count: '42',
+  employees_count: '42',
 
   okved: '',
   without_okved: false,

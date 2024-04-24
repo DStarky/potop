@@ -12,7 +12,7 @@ import { createSubmission } from '@/actions';
 import { requestFormSchema } from '@/lib/requestFormSchema';
 import { StepI } from '@/types';
 import { mapFormValuesToFormData } from '@/utils/mapFormValues';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import AgreementForm from './formSteps/AgreementForm';
 import BankForm from './formSteps/BankForm';
 import EntityDataForm from './formSteps/EntityDataForm';
@@ -23,6 +23,8 @@ import RecipientForm from './formSteps/RecipientForm';
 import SubsidyForm from './formSteps/SubsidyForm';
 import { Form } from './ui/form';
 import { useRouter } from 'next/navigation';
+
+import { EntityForm } from '@/types';
 
 interface RequestFormProps {
   steps: StepI[];
@@ -36,6 +38,8 @@ export function RequestForm({
   setCurrentStep,
 }: RequestFormProps) {
   const router = useRouter();
+  const [isINNValid, setIsINNValid] = useState<boolean>(false);
+  const [entityForm, setEntityForm] = useState<EntityForm>('self-employed');
 
   const form = useForm<z.infer<typeof requestFormSchema>>({
     resolver: zodResolver(requestFormSchema),
@@ -67,8 +71,12 @@ export function RequestForm({
   };
 
   const submitStep = async () => {
-    await form.handleSubmit(onSubmit)();
-    router.push('/success');
+    const result = await form.trigger();
+
+    if (result) {
+      await form.handleSubmit(onSubmit)();
+      router.push('/success');
+    }
   };
 
   const prevStep = () => {
@@ -93,9 +101,17 @@ export function RequestForm({
         <h2 className='form-title'>{steps[currentStep].title}</h2>
 
         {currentStep === 0 && <RecipientForm form={form} />}
-        {currentStep === 1 && <INNForm form={form} />}
+        {currentStep === 1 && (
+          <INNForm
+            form={form}
+            setIsINNValid={setIsINNValid}
+            setEntityForm={setEntityForm}
+          />
+        )}
         {currentStep === 2 && <EntityDataForm form={form} />}
-        {currentStep === 3 && <SubsidyForm form={form} />}
+        {currentStep === 3 && (
+          <SubsidyForm form={form} entityForm={entityForm} />
+        )}
         {currentStep === 4 && <BankForm form={form} />}
         {currentStep === 5 && <AgreementForm form={form} />}
         <FilesForm hidden={currentStep != 6} form={form} />
@@ -114,7 +130,10 @@ export function RequestForm({
             type='button'
             onClick={nextStep}
             className={`${currentStep === steps.length - 1 ? 'hidden' : ''}`}
-            disabled={currentStep === steps.length - 1}
+            disabled={
+              currentStep === steps.length - 1 ||
+              (!isINNValid && currentStep == 1)
+            }
           >
             Продолжить
           </Button>

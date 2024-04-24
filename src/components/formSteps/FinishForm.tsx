@@ -8,6 +8,7 @@ import {
   FormMessage,
   FormField,
 } from '../ui/form';
+import { useEffect, useState } from 'react';
 
 interface FinishFormI {
   finishFn: () => void;
@@ -15,6 +16,20 @@ interface FinishFormI {
 }
 
 const FinishForm = ({ finishFn, form }: FinishFormI) => {
+  const agreementInfo = form.watch('agreement_info');
+  const agreementProcedure = form.watch('agreement_procedure');
+  const agreementCondition = form.watch('agreement_condition');
+
+   const [isButtonActive, setIsButtonActive] = useState(false);
+
+   useEffect(() => {
+     setIsButtonActive(
+       agreementInfo && agreementProcedure && agreementCondition,
+     );
+   }, [agreementInfo, agreementProcedure, agreementCondition]);
+
+  
+
   return (
     <>
       <h3 className='text-xl font-bold pt-6'>Выражаю согласие</h3>
@@ -85,7 +100,7 @@ const FinishForm = ({ finishFn, form }: FinishFormI) => {
         )}
       />
       <div className='flex justify-center'>
-        <Button type='submit' onClick={() => finishFn()}>
+        <Button type='submit' onClick={() => finishFn()} disabled={!isButtonActive}>
           Отправить заявление
         </Button>
       </div>

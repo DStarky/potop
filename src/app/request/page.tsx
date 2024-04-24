@@ -33,7 +33,7 @@ const steps: StepI[] = [
       'address_apartment',
       'fact_address',
       'additional_addresses',
-      'eployees_count',
+      'employees_count',
       'okved',
       'without_okved',
     ],

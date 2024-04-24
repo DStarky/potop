@@ -17,7 +17,10 @@ export default function Home() {
               подачи заявлений на получение субсидий.
             </p>
             <p>
-              <Link href='#' className='underline text-blue-500 italic'>
+              <Link
+                href='/documents'
+                className='underline text-blue-500 italic'
+              >
                 Какие документы понадобятся
               </Link>
             </p>

@@ -8,16 +8,9 @@
 npm i # установить зависимости
 ```
 
-Пока устанавливаются нодомодули:
-
-Cкачать и поместить бинарник [Pocketbase](https://pocketbase.io/docs/) в `./pocketbase`.
-
 ```bash
 # настроить конфиг
 cp .env.example .env
-
-# запустить Pocketbase
-npm run db:serve
 
 # в другом запустить дев сервер Next.js
 npm run dev

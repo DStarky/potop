@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import Link from 'next/link';
 
 interface OKVEDFormI {
   form: any;
@@ -34,7 +35,7 @@ const OKVEDForm = ({ form }: OKVEDFormI) => {
         name='okved'
         render={({ field }) => (
           <FormItem className='flex flex-col'>
-            <FormLabel>Организации присвоен один из следующих ОКВЭД</FormLabel>
+            {/* <FormLabel>Организации присвоен один из следующих ОКВЭД</FormLabel> */}
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -88,6 +89,11 @@ const OKVEDForm = ({ form }: OKVEDFormI) => {
           </FormItem>
         )}
       />
+      <p>
+        <Link href='/okved-file.pdf' className='underline'>
+          Как узнать свой ОКВЭД за 5 минут
+        </Link>
+      </p>
       <FormField
         control={form.control}
         name='without_okved'

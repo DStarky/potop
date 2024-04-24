@@ -32,7 +32,7 @@ export function SubmissionTableRow({ data }: Props) {
       {expanded && (
         <TableRow>
           <TableCell colSpan={5}>
-            <StatusTable statuses={data.statuses} setOpen={setExpanded} />
+            <StatusTable statuses={data.statuses} />
           </TableCell>
         </TableRow>
       )}

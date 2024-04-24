@@ -12,6 +12,8 @@ import { Input } from '../ui/input';
 import AdditionalAddress from './AdditionalAddress';
 import FactAdress from './FactAdress';
 import OKVEDForm from './OKVEDForm';
+import Link from 'next/link';
+import { Separator } from '../ui/separator';
 
 interface EntityDataFormI {
   form: any;
@@ -173,7 +175,7 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
 
       <FormField
         control={form.control}
-        name='eployees_count'
+        name='employees_count'
         render={({ field }) => (
           <FormItem className='flex-grow'>
             <FormLabel>Численность работников*</FormLabel>
@@ -184,13 +186,20 @@ const EntityDataForm = ({ form }: EntityDataFormI) => {
           </FormItem>
         )}
       />
-      <p>
-        Для проверки условий для получения льготного займа по программе
-        ”Инвестиционные проекты в условиях чрезвычайной ситуации” заполните поля
-        ниже:
-      </p>
+      <Separator />
+      <div className='p-4 border-[1px] rounded flex flex-col gap-4'>
+        <p>
+          Проверьте, подходят ли Вам условия получения льготного займа по
+          программе ”Инвестиционные проекты в условиях чрезвычайной ситуации”:
+        </p>
+        <p>
+          Организации необходим займ на реализацию проекта по одному из
+          следующих ОКВЭД (в данный момент компании должен быть присвоен данный
+          ОКВЭД):
+        </p>
 
-      <OKVEDForm form={form} />
+        <OKVEDForm form={form} />
+      </div>
     </>
   );
 };

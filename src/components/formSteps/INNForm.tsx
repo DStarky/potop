@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { Button } from '../ui/button';
-import { Checkbox } from '../ui/checkbox';
 import {
   FormControl,
   FormField,
@@ -8,15 +8,38 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
+import { checkINN } from '@/services/checkINN/lib';
+import { useState } from 'react';
+import { EntityForm } from '@/types';
 
 interface EntityDataFormI {
   form: any;
+  setIsINNValid: React.Dispatch<React.SetStateAction<boolean>>;
+  setEntityForm: React.Dispatch<React.SetStateAction<EntityForm>>;
 }
 
-const INNForm = ({ form }: EntityDataFormI) => {
+const INNForm = ({ form, setIsINNValid, setEntityForm }: EntityDataFormI) => {
+  const [isError, setIsError] = useState(false);
+
+  const checkFn = async () => {
+    const inn = form.getValues('inn');
+    const code = form.getValues('secret_key');
+    const result = await checkINN(inn, code);
+
+    if (result.ok === true) {
+      setIsINNValid(true);
+      setIsError(false);
+      if (result.entity_type === 'SELF') setEntityForm('self-employed');
+      if (result.entity_type === 'MSP') setEntityForm('smb');
+    } else {
+      setIsINNValid(false);
+      setIsError(true);
+    }
+  };
+
   return (
     <>
-      <div className='flex  items-center justify-center gap-4'>
+      <div className='flex justify-center gap-4 items-end max-sm:flex-col max-sm:items-center'>
         <FormField
           control={form.control}
           name='inn'
@@ -35,79 +58,27 @@ const INNForm = ({ form }: EntityDataFormI) => {
           name='secret_key'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Секретный код*</FormLabel>
+              <FormLabel>Уникальный код*</FormLabel>
               <FormControl>
-                <Input placeholder='Секретный код' {...field} />
+                <Input placeholder='Уникальный код' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <Button variant={'outline'} onClick={checkFn} type='button'>
+          Проверить
+        </Button>
       </div>
-      {/* 
-      <h3 className='text-xl font-bold pt-6'>Запрашиваемая субсидия</h3>
-
-      <FormField
-        control={form.control}
-        name='subsidy_recovery'
-        render={({ field }) => (
-          <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
-            <FormControl className='mt-1'>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
-                Субсидия на возобновление предпринимательской деятельности
-              </FormLabel>
-              <FormMessage />
-            </div>
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name='subsidy_finance'
-        render={({ field }) => (
-          <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
-            <FormControl className='mt-1'>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
-                Финансовая поддержка трудовой занятости
-              </FormLabel>
-              <FormMessage />
-            </div>
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name='subsidy_benefits'
-        render={({ field }) => (
-          <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
-            <FormControl className='mt-1'>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <div className='space-y-1 leading-none'>
-              <FormLabel className='text-sm text-muted-foreground'>
-                Заявка на льготный займ по программе ”Инвестиционные проекты в
-                условиях чрезвычайных ситуаций”
-              </FormLabel>
-              <FormMessage />
-            </div>
-          </FormItem>
-        )}
-      /> */}
+      <div className='text-center text-sm text-gray-500'>
+        <p>Тестовые данные:</p>
+        <p>ИНН: 1234567890, код: 0987654321 - для самозанятых</p>
+        <p>ИНН: 112233445566, код: 665544332211 - для МСП</p>
+        <p>Все остальные вариации неверные</p>
+      </div>
+      {isError && (
+        <p className='text-red-500 text-center'>Неверный код или ИНН</p>
+      )}
     </>
   );
 };
